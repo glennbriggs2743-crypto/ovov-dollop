@@ -271,23 +271,24 @@
         }
 
         .phone-stage {
-            position: relative;
+            position: fixed;
+            inset: 0;
             z-index: 55;
             min-height: 100vh;
             display: grid;
             place-items: center;
-            padding: 12px;
+            padding: 0;
             pointer-events: none;
         }
         .phone {
-            width: min(390px, calc(100vw - 36px));
-            height: min(844px, calc(100vh - 24px));
+            width: 100vw;
+            height: 100vh;
             position: relative;
-            overflow: hidden;
-            border-radius: 44px;
+            overflow: visible;
+            border-radius: 0;
             background: transparent;
             color: #eef8ff;
-            box-shadow: 0 28px 80px rgba(0, 0, 0, .42);
+            box-shadow: none;
             pointer-events: auto;
         }
         .phone-particle-layer {
@@ -314,14 +315,16 @@
         .topbar {
             position: absolute;
             top: 18px;
-            left: 16px;
-            right: 16px;
+            left: 50%;
+            right: auto;
             z-index: 5;
+            width: min(358px, calc(100vw - 56px));
             height: 46px;
             display: flex;
             align-items: center;
             justify-content: space-between;
             padding: 0 14px;
+            transform: translateX(-50%);
             border-radius: 24px;
             border: 1px solid rgba(255, 255, 255, .12);
             background: rgba(8, 14, 24, .34);
@@ -354,7 +357,7 @@
         .float-action {
             position: absolute;
             top: 80px;
-            right: 18px;
+            right: calc((100vw - min(390px, calc(100vw - 24px))) / 2 + 18px);
             z-index: 5;
             width: 42px;
             height: 42px;
@@ -388,10 +391,11 @@
         }
         .dock {
             position: absolute;
-            left: 14px;
-            right: 14px;
+            left: 50%;
+            right: auto;
             bottom: max(16px, env(safe-area-inset-bottom));
             z-index: 8;
+            width: min(362px, calc(100vw - 52px));
             height: 78px;
             display: grid;
             grid-template-columns: repeat(6, 1fr);
@@ -404,6 +408,7 @@
             backdrop-filter: blur(30px) saturate(170%);
             -webkit-backdrop-filter: blur(30px) saturate(170%);
             box-shadow: 0 18px 46px rgba(0, 0, 0, .42), inset 0 1px 0 rgba(255, 255, 255, .12);
+            transform: translateX(-50%);
         }
         .dock button {
             appearance: none;
@@ -442,10 +447,11 @@
         }
         .sheet {
             position: absolute;
-            left: 14px;
-            right: 14px;
+            left: 50%;
+            right: auto;
             bottom: 104px;
             z-index: 7;
+            width: min(362px, calc(100vw - 52px));
             height: min(456px, calc(100% - 128px));
             min-height: 0;
             display: flex;
@@ -458,18 +464,21 @@
             -webkit-backdrop-filter: blur(34px) saturate(170%);
             box-shadow: 0 28px 70px rgba(0, 0, 0, .52), inset 0 1px 0 rgba(255, 255, 255, .12);
             overflow: hidden;
+            transform: translateX(-50%);
         }
         .sheet.lower {
             height: min(482px, calc(100% - 128px));
             padding-top: 30px;
         }
         .sheet.lower[data-panel="sound"] {
-            bottom: 92px;
-            height: min(424px, calc(100% - 116px));
-            padding: 24px 16px 14px;
+            bottom: 96px;
+            height: min(388px, calc(100% - 120px));
+            padding: 28px 16px 18px;
+            border-color: rgba(255, 255, 255, .11);
+            box-shadow: 0 14px 28px rgba(0, 0, 0, .34), inset 0 1px 0 rgba(255, 255, 255, .07);
         }
         .sheet.lower[data-panel="sound"] .sheet-head {
-            margin-bottom: 12px;
+            margin-bottom: 14px;
         }
         .prototype-sheet[hidden] {
             display: none;
@@ -674,8 +683,8 @@
         }
         @media (max-width: 840px) {
             .phone {
-                width: min(390px, calc(100vw - 24px));
-                height: min(844px, calc(100vh - 24px));
+                width: 100vw;
+                height: 100vh;
             }
         }
 
@@ -1098,18 +1107,18 @@
             --panel-orbit-duration: 2.4s;
         }
         .sound-panel-shell {
-            gap: 10px;
-            padding-top: 8px;
+            gap: 12px;
+            padding-top: 14px;
         }
         .sound-panel-shell .shell-shape-carousel {
             height: 118px;
-            margin-top: 0;
+            margin-top: 12px;
         }
         .sound-panel-shell .shape-center-label {
-            margin-top: -2px;
+            margin-top: 4px;
         }
         .sound-panel-shell .shape-snap-hint {
-            margin-top: 4px;
+            margin: 10px 6px 0;
         }
         .sound-panel-shell .shape-feedback-card {
             height: 98px;
@@ -1403,6 +1412,85 @@
             grid-column: 2;
             min-width: 0;
         }
+        .track-feedback-card {
+            background:
+                radial-gradient(circle at 24% 50%, rgba(84, 193, 255, .18), transparent 32%),
+                radial-gradient(circle at 72% 48%, rgba(79, 255, 210, .10), transparent 38%),
+                linear-gradient(115deg, rgba(255, 255, 255, .055), rgba(255, 255, 255, .028)),
+                rgba(255, 255, 255, .045);
+        }
+        .track-feedback-card .feedback-rail {
+            position: absolute;
+            left: 56px;
+            top: 50%;
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            width: 70px;
+            height: 34px;
+            border-radius: 999px;
+            border: 1px solid rgba(201, 240, 255, .18);
+            box-shadow:
+                inset 0 0 0 1px rgba(255, 255, 255, .04),
+                0 0 22px rgba(84, 193, 255, .10);
+            opacity: .86;
+        }
+        .track-feedback-card .feedback-beam {
+            position: absolute;
+            left: 56px;
+            top: 50%;
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            width: 78px;
+            height: 16px;
+            border-radius: 999px;
+            background: linear-gradient(90deg, rgba(84, 193, 255, 0) 0%, rgba(84, 193, 255, .12) 18%, rgba(211, 248, 255, .88) 50%, rgba(79, 255, 210, .18) 82%, rgba(79, 255, 210, 0) 100%);
+            filter: blur(7px);
+            opacity: .44;
+            animation: trackFeedbackBeam 2.36s cubic-bezier(.22, .84, .24, 1) infinite;
+        }
+        .track-feedback-card .feedback-orbit {
+            width: 54px;
+            height: 24px;
+            border-radius: 999px;
+            border: 1px solid rgba(219, 232, 255, .24);
+            background: linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, .06), rgba(255, 255, 255, 0));
+            box-shadow: inset 0 0 10px rgba(84, 193, 255, .06);
+            animation: trackFeedbackOrbit 1.92s linear infinite;
+        }
+        .track-feedback-card .feedback-orbit::before,
+        .track-feedback-card .feedback-orbit::after {
+            width: 6px;
+            height: 6px;
+            top: 50%;
+            left: auto;
+            bottom: auto;
+            transform: translateY(-50%);
+            box-shadow: 0 0 16px rgba(84, 193, 255, .56);
+        }
+        .track-feedback-card .feedback-orbit::before {
+            right: -3px;
+        }
+        .track-feedback-card .feedback-orbit::after {
+            left: -2px;
+            right: auto;
+            opacity: .34;
+        }
+        .track-feedback-card .feedback-core {
+            width: 46px;
+            height: 20px;
+            border-radius: 999px;
+            background: radial-gradient(circle at 50% 50%, rgba(211, 248, 255, .26), rgba(84, 193, 255, .12) 56%, rgba(84, 193, 255, 0) 100%);
+            box-shadow: 0 0 26px rgba(84, 193, 255, .14), 0 0 52px rgba(79, 255, 210, .08);
+            animation: trackFeedbackLock 2.12s cubic-bezier(.2, .84, .22, 1) infinite;
+        }
+        .track-feedback-card.is-energized .feedback-beam {
+            opacity: 1;
+        }
+        .track-feedback-card.is-energized .feedback-rail {
+            box-shadow:
+                inset 0 0 0 1px rgba(255, 255, 255, .07),
+                0 0 30px rgba(84, 193, 255, .18);
+        }
         @keyframes readyBreath {
             0%, 100% { box-shadow: 0 0 18px rgba(255, 255, 255, 0.12); }
             50% { box-shadow: 0 0 34px rgba(255, 255, 255, 0.28); }
@@ -1415,6 +1503,20 @@
         @keyframes feedbackBreath {
             0%, 100% { transform: translate(-50%, -50%) scale(0.88); opacity: .70; }
             50% { transform: translate(-50%, -50%) scale(1.22); opacity: 1; }
+        }
+        @keyframes trackFeedbackOrbit {
+            from { transform: translate(-50%, -50%) rotate(0deg); }
+            to { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+        @keyframes trackFeedbackBeam {
+            0% { transform: translate(-66px, -50%) scaleX(.46); opacity: .12; }
+            18% { opacity: .38; }
+            52% { transform: translate(-50%, -50%) scaleX(1); opacity: .74; }
+            100% { transform: translate(-34px, -50%) scaleX(.54); opacity: .16; }
+        }
+        @keyframes trackFeedbackLock {
+            0%, 100% { transform: translate(-50%, -50%) scaleX(.88); opacity: .62; }
+            48% { transform: translate(-50%, -50%) scaleX(1.08); opacity: .98; }
         }
         @keyframes centerHaloBreath {
             0%, 100% {
@@ -1793,36 +1895,36 @@
                     <!-- 极简精细色调圆环点格 (3种双色渐�?+ 15种单色渐�?+ 电影模式) -->
                     <div class="grid grid-cols-6 gap-1.5 justify-items-center">
                         <!-- 双色渐变 -->
-                        <button class="color-dot-btn text-purple-400 bg-gradient-to-r from-indigo-500 to-pink-500" type="button" data-color="dual_amethyst" title="Amethyst" aria-label="Amethyst" aria-pressed="false"></button>
-                        <button class="color-dot-btn text-teal-400 bg-gradient-to-r from-emerald-500 to-green-300" type="button" data-color="dual_emerald" title="Emerald" aria-label="Emerald" aria-pressed="false"></button>
-                        <button class="color-dot-btn text-red-400 bg-gradient-to-r from-red-600 to-yellow-400" type="button" data-color="dual_crimson_gold" title="Crimson Gold" aria-label="Crimson Gold" aria-pressed="false"></button>
-                        <button class="color-dot-btn text-slate-100 bg-gradient-to-r from-slate-100 to-amber-300" type="button" data-color="dual_luxury_white" title="Luxury White" aria-label="Luxury White" aria-pressed="false"></button>
-                        <button class="color-dot-btn text-teal-300 bg-gradient-to-r from-teal-400 to-slate-100" type="button" data-color="dual_teal_white" title="Teal White" aria-label="Teal White" aria-pressed="false"></button>
-                        <button class="color-dot-btn text-amber-300 bg-gradient-to-r from-amber-400 to-white" type="button" data-color="dual_gold_white" title="Gold White" aria-label="Gold White" aria-pressed="false"></button>
-                        <button class="color-dot-btn text-pink-300 bg-gradient-to-r from-pink-400 to-white" type="button" data-color="dual_pink_white" title="Pink White" aria-label="Pink White" aria-pressed="false"></button>
-                        <button class="color-dot-btn text-sky-400 bg-gradient-to-r from-blue-500 to-cyan-300" type="button" data-color="dual_blue_cyan" title="Blue Cyan" aria-label="Blue Cyan" aria-pressed="false"></button>
-                        <button class="color-dot-btn text-fuchsia-400 bg-gradient-to-r from-violet-500 to-pink-400" type="button" data-color="dual_violet_pink" title="Violet Pink" aria-label="Violet Pink" aria-pressed="false"></button>
-                        <button class="color-dot-btn text-cyan-300 bg-gradient-to-r from-sky-500 to-teal-300" type="button" data-color="dual_ocean_cyan" title="Ocean Cyan" aria-label="Ocean Cyan" aria-pressed="false"></button>
-                        <button class="color-dot-btn text-emerald-300 bg-gradient-to-r from-emerald-400 via-blue-400 to-pink-400" type="button" data-color="dual_aurora" title="Aurora" aria-label="Aurora" aria-pressed="false"></button>
-                        <button class="color-dot-btn text-rose-300 bg-gradient-to-r from-rose-400 to-amber-300" type="button" data-color="dual_rose_gold" title="Rose Gold" aria-label="Rose Gold" aria-pressed="false"></button>
-                        <button class="color-dot-btn text-emerald-400 bg-emerald-500" type="button" data-color="matrix" title="Matrix" aria-label="Matrix" aria-pressed="false"></button>
-                        <button class="color-dot-btn text-pink-400 bg-pink-500" type="button" data-color="sakura" title="Sakura" aria-label="Sakura" aria-pressed="false"></button>
-                        <button class="color-dot-btn text-yellow-300 bg-yellow-400" type="button" data-color="gold" title="Gold" aria-label="Gold" aria-pressed="false"></button>
-                        <button class="color-dot-btn text-red-500 bg-red-600" type="button" data-color="grad_red" title="Red" aria-label="Red" aria-pressed="false"></button>
-                        <button class="color-dot-btn text-green-400 bg-green-500" type="button" data-color="grad_green" title="Green" aria-label="Green" aria-pressed="false"></button>
-                        <button class="color-dot-btn text-blue-500 bg-blue-600" type="button" data-color="grad_blue" title="Blue" aria-label="Blue" aria-pressed="false"></button>
-                        <button class="color-dot-btn text-purple-400 bg-purple-600" type="button" data-color="grad_purple" title="Purple" aria-label="Purple" aria-pressed="false"></button>
-                        <button class="color-dot-btn text-yellow-400 bg-yellow-500" type="button" data-color="grad_yellow" title="Yellow" aria-label="Yellow" aria-pressed="false"></button>
-                        <button class="color-dot-btn text-cyan-400 bg-cyan-400" type="button" data-color="grad_cyan" title="Cyan" aria-label="Cyan" aria-pressed="false"></button>
-                        <button class="color-dot-btn text-slate-100 bg-white" type="button" data-color="grad_white" title="White" aria-label="White" aria-pressed="false"></button>
-                        <button class="color-dot-btn text-pink-300 bg-pink-300" type="button" data-color="grad_pink" title="Pink" aria-label="Pink" aria-pressed="false"></button>
-                        <button class="color-dot-btn text-orange-500 bg-orange-500" type="button" data-color="grad_orange" title="Orange" aria-label="Orange" aria-pressed="false"></button>
-                        <button class="color-dot-btn text-lime-400 bg-lime-400" type="button" data-color="grad_lime" title="Lime" aria-label="Lime" aria-pressed="false"></button>
-                        <button class="color-dot-btn text-teal-500 bg-teal-500" type="button" data-color="grad_teal" title="Teal" aria-label="Teal" aria-pressed="false"></button>
-                        <button class="color-dot-btn text-indigo-400 bg-indigo-500" type="button" data-color="grad_indigo" title="Indigo" aria-label="Indigo" aria-pressed="false"></button>
-                        <button class="color-dot-btn text-amber-500 bg-amber-600" type="button" data-color="grad_gold" title="Gradient Gold" aria-label="Gradient Gold" aria-pressed="false"></button>
-                        <button class="color-dot-btn text-fuchsia-300 bg-fuchsia-300" type="button" data-color="grad_lavender" title="Lavender" aria-label="Lavender" aria-pressed="false"></button>
-                        <button class="color-dot-btn text-rose-600 bg-rose-600" type="button" data-color="grad_rose" title="Rose" aria-label="Rose" aria-pressed="false"></button>
+                        <button class="color-dot-btn text-pink-300 bg-pink-400" type="button" data-color="sakura" title="樱粉" aria-label="樱粉" aria-pressed="false"></button>
+                        <button class="color-dot-btn text-amber-200 bg-amber-400" type="button" data-color="gold" title="鎏金" aria-label="鎏金" aria-pressed="false"></button>
+                        <button class="color-dot-btn text-slate-100 bg-gradient-to-r from-slate-100 to-amber-300" type="button" data-color="dual_luxury_white" title="流银白" aria-label="流银白" aria-pressed="false"></button>
+                        <button class="color-dot-btn text-sky-300 bg-gradient-to-r from-blue-500 to-cyan-300" type="button" data-color="dual_blue_cyan" title="蓝青脉冲" aria-label="蓝青脉冲" aria-pressed="false"></button>
+                        <button class="color-dot-btn text-fuchsia-300 bg-gradient-to-r from-violet-500 to-pink-400" type="button" data-color="dual_violet_pink" title="柔紫霓虹" aria-label="柔紫霓虹" aria-pressed="false"></button>
+                        <button class="color-dot-btn text-rose-300 bg-gradient-to-r from-rose-400 to-amber-300" type="button" data-color="dual_rose_gold" title="玫瑰金" aria-label="玫瑰金" aria-pressed="false"></button>
+                        <button class="color-dot-btn text-purple-300 bg-gradient-to-r from-indigo-500 to-pink-500" type="button" data-color="dual_amethyst" title="紫晶雾" aria-label="紫晶雾" aria-pressed="false"></button>
+                        <button class="color-dot-btn text-red-300 bg-gradient-to-r from-red-600 to-yellow-400" type="button" data-color="dual_crimson_gold" title="绯金" aria-label="绯金" aria-pressed="false"></button>
+                        <button class="color-dot-btn text-pink-200 bg-gradient-to-r from-pink-400 to-slate-100" type="button" data-color="dual_pink_white" title="粉雾白" aria-label="粉雾白" aria-pressed="false"></button>
+                        <button class="color-dot-btn text-emerald-300 bg-gradient-to-r from-emerald-400 to-violet-400" type="button" data-color="dual_aurora" title="极光线" aria-label="极光线" aria-pressed="false"></button>
+                        <button class="color-dot-btn text-cyan-300 bg-gradient-to-r from-cyan-300 via-sky-400 to-indigo-500" type="button" data-color="grad_cyan" title="冰潮霓光" aria-label="冰潮霓光" aria-pressed="false"></button>
+                        <button class="color-dot-btn text-blue-300 bg-gradient-to-r from-slate-900 via-blue-500 to-cyan-300" type="button" data-color="grad_blue" title="深海脉冲" aria-label="深海脉冲" aria-pressed="false"></button>
+                        <button class="color-dot-btn text-violet-300 bg-gradient-to-r from-indigo-500 via-violet-500 to-fuchsia-400" type="button" data-color="grad_purple" title="星雾紫" aria-label="星雾紫" aria-pressed="false"></button>
+                        <button class="color-dot-btn text-rose-300 bg-gradient-to-r from-rose-500 via-pink-400 to-orange-300" type="button" data-color="grad_rose" title="玫雾晚霞" aria-label="玫雾晚霞" aria-pressed="false"></button>
+                        <button class="color-dot-btn text-orange-300" style="background: linear-gradient(135deg, #ff7a18 0%, #ffd84d 30%, #ff6b8a 64%, #9f7bff 100%);" type="button" data-color="grad_orange" title="橙焰日轮" aria-label="橙焰日轮" aria-pressed="false"></button>
+                        <button class="color-dot-btn text-lime-300 bg-gradient-to-r from-lime-400 via-emerald-400 to-cyan-300" type="button" data-color="grad_lime" title="青柠电波" aria-label="青柠电波" aria-pressed="false"></button>
+                        <button class="color-dot-btn text-teal-300" style="background: linear-gradient(135deg, #18d1b5 0%, #3de7ff 30%, #4f7cff 64%, #8c63ff 100%);" type="button" data-color="grad_teal" title="湖绿幕光" aria-label="湖绿幕光" aria-pressed="false"></button>
+                        <button class="color-dot-btn text-indigo-300 bg-gradient-to-r from-indigo-600 via-violet-500 to-sky-400" type="button" data-color="grad_indigo" title="靛夜折光" aria-label="靛夜折光" aria-pressed="false"></button>
+                        <button class="color-dot-btn text-amber-300 bg-gradient-to-r from-amber-500 via-yellow-300 to-orange-400" type="button" data-color="grad_gold" title="琥珀流金" aria-label="琥珀流金" aria-pressed="false"></button>
+                        <button class="color-dot-btn text-fuchsia-200 bg-gradient-to-r from-fuchsia-300 via-violet-300 to-sky-300" type="button" data-color="grad_lavender" title="薰衣薄雾" aria-label="薰衣薄雾" aria-pressed="false"></button>
+                        <button class="color-dot-btn text-red-300 bg-gradient-to-r from-red-600 via-rose-500 to-orange-400" type="button" data-color="grad_red" title="绯红脉冲" aria-label="绯红脉冲" aria-pressed="false"></button>
+                        <button class="color-dot-btn text-emerald-300" style="background: linear-gradient(135deg, #9dfc4f 0%, #28d17c 30%, #17d6c3 64%, #4a8dff 100%);" type="button" data-color="grad_green" title="林雾晨光" aria-label="林雾晨光" aria-pressed="false"></button>
+                        <button class="color-dot-btn text-yellow-200" style="background: linear-gradient(135deg, #fff06a 0%, #ffb83f 30%, #ff6d7a 64%, #8fe85a 100%);" type="button" data-color="grad_yellow" title="晴光黄曜" aria-label="晴光黄曜" aria-pressed="false"></button>
+                        <button class="color-dot-btn text-slate-50" style="background: linear-gradient(135deg, #ffffff 0%, #8fd9ff 30%, #b69bff 64%, #ffc2d5 100%);" type="button" data-color="grad_white" title="月白冰晕" aria-label="月白冰晕" aria-pressed="false"></button>
+                        <button class="color-dot-btn text-pink-200 bg-gradient-to-r from-pink-400 via-fuchsia-400 to-violet-400" type="button" data-color="grad_pink" title="糖霓云霞" aria-label="糖霓云霞" aria-pressed="false"></button>
+                        <button class="color-dot-btn text-slate-100" style="background: linear-gradient(135deg, #fff8da 0%, #8ef1ff 30%, #9fa2ff 64%, #ffb6cf 100%);" type="button" data-color="tri_pearl_glow" title="珍珠微光" aria-label="珍珠微光" aria-pressed="false"></button>
+                        <button class="color-dot-btn text-emerald-200 bg-gradient-to-r from-emerald-300 via-sky-400 to-violet-500" type="button" data-color="tri_mint_dusk" title="薄荷暮色" aria-label="薄荷暮色" aria-pressed="false"></button>
+                        <button class="color-dot-btn text-amber-200 bg-gradient-to-r from-yellow-300 via-orange-400 to-rose-400" type="button" data-color="tri_solar_tide" title="日曜潮汐" aria-label="日曜潮汐" aria-pressed="false"></button>
+                        <button class="color-dot-btn text-rose-200 bg-gradient-to-r from-rose-400 via-violet-500 to-indigo-700" type="button" data-color="tri_berry_silk" title="莓果丝缎" aria-label="莓果丝缎" aria-pressed="false"></button>
+                        <button class="color-dot-btn text-cyan-200 bg-gradient-to-r from-cyan-300 via-violet-500 to-orange-400" type="button" data-color="tri_icefire" title="冰焰对流" aria-label="冰焰对流" aria-pressed="false"></button>
                     </div>
                 </div>
             </div>
@@ -1916,10 +2018,10 @@
             <div class="w-12 h-12 rounded-full bg-purple-500/10 border border-purple-500/30 flex items-center justify-center mx-auto mb-3">
                 <span class="text-xl">✦</span>
             </div>
-            <h3 class="text-sm font-bold text-slate-100 tracking-wider">次元共鸣场 v7.0 已装载</h3>
+            <h3 class="text-sm font-bold text-slate-100 tracking-wider">次元已唤醒</h3>
             <p class="text-xs text-slate-400 mt-2 leading-relaxed">
-                点击屏幕激发次元爆破！<br>
-                持续滑动，即可阶梯升温马达振感，最高支持 20 秒极限四重变调！
+                点击空白处，点燃粒子场<br>
+                滑动越久，反馈越强
             </p>
         </div>
     </div>
@@ -1936,8 +2038,8 @@
         // 全局动态状态机
         var state = {
             soundTheme: 'inst_piano', shape: 'circle', pattern: 'sphere',
-            gravity: 0.1, friction: 0.97, count: 160, speed: 8.0, life: 80,
-            trail: 0.15, colorTheme: 'dual_amethyst', sizeMultiplier: 1.0, sizeVariance: 0.55, spinMultiplier: 1.0,
+            gravity: -0.016, friction: 0.06, count: 172, speed: 10.6, life: 90.85,
+            trail: 0.332, colorTheme: 'dual_amethyst', sizeMultiplier: 2.61, sizeVariance: 0.6, spinMultiplier: 1.3,
             rotationMode: 'self',
             audioEnabled: false, vibrateEnabled: true, sprayEnabled: true,
             continuousTime: 0, isImmersive: false
@@ -1969,37 +2071,69 @@
             char_contour: '\u222E', char_d: 'D', char_otimes: '\u2297', char_omega_upper: '\u03A9'
         };
         var colorSwatchCatalog = [
-            { theme: 'dual_amethyst', label: '紫晶雾', note: '冷紫与玫粉在玻璃里交织，整体更梦幻。', classes: 'text-purple-400 bg-gradient-to-r from-indigo-500 to-pink-500' },
-            { theme: 'dual_emerald', label: '翡翠光', note: '青绿与浅金轻轻错开，层次更清透。', classes: 'text-teal-400 bg-gradient-to-r from-emerald-500 to-green-300' },
-            { theme: 'dual_crimson_gold', label: '绯金', note: '偏电影感的暖色冲击，适合更强烈的情绪。', classes: 'text-red-400 bg-gradient-to-r from-red-600 to-yellow-400' },
-            { theme: 'dual_luxury_white', label: '流银白', note: '高光像被拉开的液态金属，气质最冷静。', classes: 'text-slate-100 bg-gradient-to-r from-slate-100 to-amber-300' },
-            { theme: 'dual_teal_white', label: '雾青白', note: '青白过渡更轻，适合极简氛围。', classes: 'text-teal-300 bg-gradient-to-r from-teal-400 to-slate-100' },
-            { theme: 'dual_gold_white', label: '鎏金白', note: '暖金和冷白同屏，像镜面上的细闪。', classes: 'text-amber-300 bg-gradient-to-r from-amber-400 to-white' },
-            { theme: 'dual_pink_white', label: '粉雾白', note: '柔粉更轻盈，适合偏柔和的粒子表现。', classes: 'text-pink-300 bg-gradient-to-r from-pink-400 to-white' },
-            { theme: 'dual_blue_cyan', label: '蓝青脉冲', note: '蓝与青切换更快，画面更有速度感。', classes: 'text-sky-400 bg-gradient-to-r from-blue-500 to-cyan-300' },
-            { theme: 'dual_violet_pink', label: '柔紫霓虹', note: '紫粉像夜色中的玻璃反射，更显层次。', classes: 'text-fuchsia-400 bg-gradient-to-r from-violet-500 to-pink-400' },
-            { theme: 'dual_ocean_cyan', label: '海雾青', note: '青蓝流动偏冷，适合更纯净的空间感。', classes: 'text-cyan-300 bg-gradient-to-r from-sky-500 to-teal-300' },
-            { theme: 'dual_aurora', label: '极光', note: '多色渐次流动，切换时最有情绪氛围。', classes: 'text-emerald-300 bg-gradient-to-r from-emerald-400 via-blue-400 to-pink-400' },
-            { theme: 'dual_rose_gold', label: '玫瑰金', note: '偏奢感的暖色玻璃，更显高级。', classes: 'text-rose-300 bg-gradient-to-r from-rose-400 to-amber-300' },
-            { theme: 'matrix', label: '矩阵绿', note: '冷亮的数字感绿色，适合更科技的氛围。', classes: 'text-emerald-400 bg-emerald-500' },
-            { theme: 'sakura', label: '樱粉', note: '偏柔和的粉色云雾，层次轻而不腻。', classes: 'text-pink-400 bg-pink-500' },
-            { theme: 'gold', label: '鎏金', note: '暖金更闪，粒子会显得更珍贵。', classes: 'text-yellow-300 bg-yellow-400' },
-            { theme: 'grad_red', label: '炽红', note: '红色渐亮更直接，节奏感更强。', classes: 'text-red-500 bg-red-600' },
-            { theme: 'grad_green', label: '翠绿', note: '绿色从深到亮，显得很有生命力。', classes: 'text-green-400 bg-green-500' },
-            { theme: 'grad_blue', label: '深蓝', note: '蓝色层次更沉稳，空间感更深。', classes: 'text-blue-500 bg-blue-600' },
-            { theme: 'grad_purple', label: '星紫', note: '经典紫色氛围，适合更神秘的表达。', classes: 'text-purple-400 bg-purple-600' },
-            { theme: 'grad_yellow', label: '电黄', note: '亮黄色更跳，画面会更有存在感。', classes: 'text-yellow-400 bg-yellow-500' },
-            { theme: 'grad_cyan', label: '冰青', note: '偏冰感的青色，适合更通透的玻璃层。', classes: 'text-cyan-400 bg-cyan-400' },
-            { theme: 'grad_white', label: '月白', note: '几乎无色但带冷光，更干净。', classes: 'text-slate-100 bg-white' },
-            { theme: 'grad_pink', label: '糖粉', note: '粉色纯净但更轻快，适合温柔模式。', classes: 'text-pink-300 bg-pink-300' },
-            { theme: 'grad_orange', label: '橙焰', note: '橙色更热，更像被点亮的火花。', classes: 'text-orange-500 bg-orange-500' },
-            { theme: 'grad_lime', label: '青柠', note: '高亮青柠色会让反馈更活泼。', classes: 'text-lime-400 bg-lime-400' },
-            { theme: 'grad_teal', label: '湖绿', note: '湖绿色过渡平顺，偏静谧。', classes: 'text-teal-500 bg-teal-500' },
-            { theme: 'grad_indigo', label: '靛蓝', note: '更深的蓝紫调，适合沉浸感更强的场景。', classes: 'text-indigo-400 bg-indigo-500' },
-            { theme: 'grad_gold', label: '亮金', note: '比鎏金更明亮，反差更高。', classes: 'text-amber-500 bg-amber-600' },
-            { theme: 'grad_lavender', label: '薰衣草', note: '偏粉紫的空气感，会让画面更柔。', classes: 'text-fuchsia-300 bg-fuchsia-300' },
-            { theme: 'grad_rose', label: '玫红', note: '更饱满的暖玫红，适合强调情绪。', classes: 'text-rose-600 bg-rose-600' }
+            { theme: 'sakura', mode: 'mono', label: '樱粉', note: '保留一颗柔亮粉色，适合最轻的漂浮感。', classes: 'text-pink-300 bg-pink-400' },
+            { theme: 'gold', mode: 'mono', label: '鎏金', note: '保留一颗暖金单色，亮面反馈会更干净。', classes: 'text-amber-200 bg-amber-400' },
+            { theme: 'dual_luxury_white', mode: 'dual', label: '流银白', note: '银白和香槟金交替出现，整体最克制。', classes: 'text-slate-100 bg-gradient-to-r from-slate-100 to-amber-300' },
+            { theme: 'dual_blue_cyan', mode: 'dual', label: '蓝青脉冲', note: '冷蓝和冰青轮流推进，速度感更明显。', classes: 'text-sky-300 bg-gradient-to-r from-blue-500 to-cyan-300' },
+            { theme: 'dual_violet_pink', mode: 'dual', label: '柔紫霓虹', note: '紫粉切换更顺，适合偏夜色的玻璃感。', classes: 'text-fuchsia-300 bg-gradient-to-r from-violet-500 to-pink-400' },
+            { theme: 'dual_rose_gold', mode: 'dual', label: '玫瑰金', note: '暖粉和金色保持低频交替，质感更成熟。', classes: 'text-rose-300 bg-gradient-to-r from-rose-400 to-amber-300' },
+            { theme: 'dual_amethyst', mode: 'dual', label: '紫晶雾', note: '冷紫与玫粉直接对撞，氛围依旧最梦幻。', classes: 'text-purple-300 bg-gradient-to-r from-indigo-500 to-pink-500' },
+            { theme: 'dual_crimson_gold', mode: 'dual', label: '绯金', note: '热红配暖金，爆发时更有电影灯光感。', classes: 'text-red-300 bg-gradient-to-r from-red-600 to-yellow-400' },
+            { theme: 'dual_pink_white', mode: 'dual', label: '粉雾白', note: '粉与白的对比更轻，适合细腻拖尾。', classes: 'text-pink-200 bg-gradient-to-r from-pink-400 to-slate-100' },
+            { theme: 'dual_aurora', mode: 'dual', label: '极光线', note: '青绿和柔紫持续摆动，情绪会更流动。', classes: 'text-emerald-300 bg-gradient-to-r from-emerald-400 to-violet-400' },
+            { theme: 'grad_cyan', mode: 'tri', label: '冰潮霓光', note: '冰青一路过渡到紫蓝，层次很透。', classes: 'text-cyan-300 bg-gradient-to-r from-cyan-300 via-sky-400 to-indigo-500' },
+            { theme: 'grad_blue', mode: 'tri', label: '深海脉冲', note: '深蓝推向青色和紫调，空间感更深。', classes: 'text-blue-300 bg-gradient-to-r from-slate-900 via-blue-500 to-cyan-300' },
+            { theme: 'grad_purple', mode: 'tri', label: '星雾紫', note: '紫色从冷到暖拉开，适合沉浸型画面。', classes: 'text-violet-300 bg-gradient-to-r from-indigo-500 via-violet-500 to-fuchsia-400' },
+            { theme: 'grad_rose', mode: 'tri', label: '玫雾晚霞', note: '玫红、桃粉、暖橙过渡更柔和。', classes: 'text-rose-300 bg-gradient-to-r from-rose-500 via-pink-400 to-orange-300' },
+            { theme: 'grad_orange', mode: 'tri', label: '橙焰日轮', note: '橙、黄、玫粉、紫四段拉开，爆裂感会更直接。', classes: 'text-orange-300', style: 'linear-gradient(135deg, #ff7a18 0%, #ffd84d 30%, #ff6b8a 64%, #9f7bff 100%)' },
+            { theme: 'grad_lime', mode: 'tri', label: '青柠电波', note: '高亮青柠过渡到青蓝，画面会更轻快。', classes: 'text-lime-300 bg-gradient-to-r from-lime-400 via-emerald-400 to-cyan-300' },
+            { theme: 'grad_teal', mode: 'tri', label: '湖绿幕光', note: '青绿、亮青、蓝、紫四段更分明，色区更干净。', classes: 'text-teal-300', style: 'linear-gradient(135deg, #18d1b5 0%, #3de7ff 30%, #4f7cff 64%, #8c63ff 100%)' },
+            { theme: 'grad_indigo', mode: 'tri', label: '靛夜折光', note: '靛蓝会缓慢滑向紫和天青，层次很细。', classes: 'text-indigo-300 bg-gradient-to-r from-indigo-600 via-violet-500 to-sky-400' },
+            { theme: 'grad_gold', mode: 'tri', label: '琥珀流金', note: '暖金之间加一点橙调，亮面会更活。', classes: 'text-amber-300 bg-gradient-to-r from-amber-500 via-yellow-300 to-orange-400' },
+            { theme: 'grad_lavender', mode: 'tri', label: '薰衣薄雾', note: '薰衣草紫加一点雾蓝，适合更轻柔的预设。', classes: 'text-fuchsia-200 bg-gradient-to-r from-fuchsia-300 via-violet-300 to-sky-300' },
+            { theme: 'grad_red', mode: 'tri', label: '绯红脉冲', note: '深红到玫粉再到暖橙，情绪会更饱满。', classes: 'text-red-300 bg-gradient-to-r from-red-600 via-rose-500 to-orange-400' },
+            { theme: 'grad_green', mode: 'tri', label: '林雾晨光', note: '黄绿、正绿、青绿、亮蓝四段会更容易看清。', classes: 'text-emerald-300', style: 'linear-gradient(135deg, #9dfc4f 0%, #28d17c 30%, #17d6c3 64%, #4a8dff 100%)' },
+            { theme: 'grad_yellow', mode: 'tri', label: '晴光黄曜', note: '亮黄、橙金、珊瑚、嫩绿四段更有分区感。', classes: 'text-yellow-200', style: 'linear-gradient(135deg, #fff06a 0%, #ffb83f 30%, #ff6d7a 64%, #8fe85a 100%)' },
+            { theme: 'grad_white', mode: 'tri', label: '月白冰晕', note: '白、冰蓝、浅紫、雾粉会比之前更容易分辨。', classes: 'text-slate-50', style: 'linear-gradient(135deg, #ffffff 0%, #8fd9ff 30%, #b69bff 64%, #ffc2d5 100%)' },
+            { theme: 'grad_pink', mode: 'tri', label: '糖霓云霞', note: '粉、洋红、浅紫衔接更细，甜但不腻。', classes: 'text-pink-200 bg-gradient-to-r from-pink-400 via-fuchsia-400 to-violet-400' },
+            { theme: 'tri_pearl_glow', mode: 'tri', label: '珍珠微光', note: '香槟白、冰青、淡紫、柔粉四段会更精致也更清楚。', classes: 'text-slate-100', style: 'linear-gradient(135deg, #fff8da 0%, #8ef1ff 30%, #9fa2ff 64%, #ffb6cf 100%)' },
+            { theme: 'tri_mint_dusk', mode: 'tri', label: '薄荷暮色', note: '薄荷青缓缓滑向深蓝和柔紫，冷感更稳。', classes: 'text-emerald-200 bg-gradient-to-r from-emerald-300 via-sky-400 to-violet-500' },
+            { theme: 'tri_solar_tide', mode: 'tri', label: '日曜潮汐', note: '金、橙、粉三段都偏暖，手机上也够亮。', classes: 'text-amber-200 bg-gradient-to-r from-yellow-300 via-orange-400 to-rose-400' },
+            { theme: 'tri_berry_silk', mode: 'tri', label: '莓果丝缎', note: '莓粉、葡萄紫、午夜蓝连起来更有层次。', classes: 'text-rose-200 bg-gradient-to-r from-rose-400 via-violet-500 to-indigo-700' },
+            { theme: 'tri_icefire', mode: 'tri', label: '冰焰对流', note: '冷青和暖橙中间插入紫色，反差更有趣。', classes: 'text-cyan-200 bg-gradient-to-r from-cyan-300 via-violet-500 to-orange-400' }
         ];
+        var themeColorStops = {
+            sakura: [{ h: 334, s: 82, l: 74 }],
+            gold: [{ h: 44, s: 88, l: 58 }],
+            dual_luxury_white: [{ h: 210, s: 10, l: 92 }, { h: 42, s: 34, l: 70 }],
+            dual_blue_cyan: [{ h: 218, s: 92, l: 58 }, { h: 186, s: 88, l: 60 }],
+            dual_violet_pink: [{ h: 266, s: 84, l: 62 }, { h: 326, s: 86, l: 66 }],
+            dual_rose_gold: [{ h: 345, s: 80, l: 66 }, { h: 38, s: 88, l: 64 }],
+            dual_amethyst: [{ h: 258, s: 90, l: 58 }, { h: 328, s: 88, l: 62 }],
+            dual_crimson_gold: [{ h: 6, s: 90, l: 58 }, { h: 44, s: 88, l: 60 }],
+            dual_pink_white: [{ h: 328, s: 76, l: 70 }, { h: 210, s: 12, l: 92 }],
+            dual_aurora: [{ h: 160, s: 82, l: 58 }, { h: 276, s: 80, l: 64 }],
+            grad_cyan: [{ h: 182, s: 86, l: 56 }, { h: 206, s: 92, l: 60 }, { h: 232, s: 80, l: 62 }],
+            grad_blue: [{ h: 222, s: 60, l: 18 }, { h: 214, s: 92, l: 56 }, { h: 186, s: 82, l: 64 }],
+            grad_purple: [{ h: 236, s: 78, l: 54 }, { h: 270, s: 88, l: 62 }, { h: 312, s: 84, l: 64 }],
+            grad_rose: [{ h: 345, s: 82, l: 56 }, { h: 330, s: 86, l: 66 }, { h: 22, s: 88, l: 64 }],
+            grad_orange: [{ h: 26, s: 96, l: 56 }, { h: 50, s: 94, l: 64 }, { h: 340, s: 88, l: 68 }, { h: 260, s: 80, l: 68 }],
+            grad_lime: [{ h: 84, s: 88, l: 56 }, { h: 152, s: 80, l: 52 }, { h: 188, s: 82, l: 60 }],
+            grad_teal: [{ h: 166, s: 82, l: 48 }, { h: 186, s: 92, l: 60 }, { h: 220, s: 86, l: 62 }, { h: 258, s: 82, l: 66 }],
+            grad_indigo: [{ h: 232, s: 72, l: 54 }, { h: 264, s: 78, l: 60 }, { h: 206, s: 84, l: 64 }],
+            grad_gold: [{ h: 38, s: 88, l: 52 }, { h: 50, s: 90, l: 60 }, { h: 24, s: 88, l: 58 }],
+            grad_lavender: [{ h: 304, s: 74, l: 72 }, { h: 270, s: 76, l: 68 }, { h: 210, s: 78, l: 74 }],
+            grad_red: [{ h: 2, s: 84, l: 48 }, { h: 338, s: 88, l: 60 }, { h: 22, s: 86, l: 58 }],
+            grad_green: [{ h: 86, s: 92, l: 64 }, { h: 146, s: 78, l: 50 }, { h: 176, s: 80, l: 48 }, { h: 216, s: 90, l: 62 }],
+            grad_yellow: [{ h: 56, s: 94, l: 68 }, { h: 34, s: 96, l: 62 }, { h: 350, s: 86, l: 68 }, { h: 96, s: 78, l: 64 }],
+            grad_white: [{ h: 210, s: 8, l: 98 }, { h: 198, s: 78, l: 82 }, { h: 262, s: 66, l: 80 }, { h: 338, s: 64, l: 86 }],
+            grad_pink: [{ h: 328, s: 86, l: 64 }, { h: 310, s: 88, l: 60 }, { h: 270, s: 80, l: 64 }],
+            tri_pearl_glow: [{ h: 48, s: 72, l: 92 }, { h: 184, s: 86, l: 76 }, { h: 236, s: 72, l: 78 }, { h: 338, s: 74, l: 84 }],
+            tri_mint_dusk: [{ h: 160, s: 76, l: 64 }, { h: 208, s: 86, l: 58 }, { h: 272, s: 72, l: 62 }],
+            tri_solar_tide: [{ h: 52, s: 92, l: 62 }, { h: 28, s: 88, l: 58 }, { h: 348, s: 84, l: 66 }],
+            tri_berry_silk: [{ h: 344, s: 84, l: 62 }, { h: 274, s: 72, l: 56 }, { h: 230, s: 58, l: 38 }],
+            tri_icefire: [{ h: 190, s: 86, l: 62 }, { h: 270, s: 78, l: 58 }, { h: 24, s: 90, l: 58 }]
+        };
         var shapeShellCatalog = [
             { id: 0, name: '圆核', particleShape: 'circle', kind: 'circle', icon: 'circle' },
             { id: 1, name: '三角束', particleShape: 'triangle', kind: 'hex', icon: 'triangle' },
@@ -2100,13 +2234,26 @@
         var shapeShellCatalogReady = shapeShellCatalog.length === 30;
 
         function resizeParticleCanvases() {
-            width = canvas.width = window.innerWidth;
-            height = canvas.height = window.innerHeight;
+            var dpr = Math.min(2, Math.max(1, window.devicePixelRatio || 1));
+            var cssWidth = window.innerWidth;
+            var cssHeight = window.innerHeight;
+            width = cssWidth;
+            height = cssHeight;
+            canvas.width = Math.max(1, Math.floor(cssWidth * dpr));
+            canvas.height = Math.max(1, Math.floor(cssHeight * dpr));
+            canvas.style.width = cssWidth + 'px';
+            canvas.style.height = cssHeight + 'px';
+            ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
             if (phoneCanvas) {
                 var phoneHost = document.getElementById('prototype-phone');
                 if (phoneHost) {
-                    phoneCanvas.width = Math.max(1, Math.floor(phoneHost.clientWidth));
-                    phoneCanvas.height = Math.max(1, Math.floor(phoneHost.clientHeight));
+                    var phoneWidth = Math.max(1, Math.floor(phoneHost.clientWidth));
+                    var phoneHeight = Math.max(1, Math.floor(phoneHost.clientHeight));
+                    phoneCanvas.width = Math.max(1, Math.floor(phoneWidth * dpr));
+                    phoneCanvas.height = Math.max(1, Math.floor(phoneHeight * dpr));
+                    phoneCanvas.style.width = phoneWidth + 'px';
+                    phoneCanvas.style.height = phoneHeight + 'px';
+                    if (phoneCtx) phoneCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
                 }
             }
         }
@@ -2747,16 +2894,20 @@
         function triggerHaptic() {
             if (state.vibrateEnabled && navigator.vibrate) {
                 try {
-                    var maxVibeTime = 10 + Math.floor(90 * Math.min(1.0, state.continuousTime / 20000.0));
-                    if (state.continuousTime >= 20000) {
-                        navigator.vibrate([maxVibeTime, 8, maxVibeTime, 8, maxVibeTime]);
-                    } else if (state.continuousTime >= 15000) {
-                        navigator.vibrate([maxVibeTime, 12, maxVibeTime]);
-                    } else if (state.continuousTime >= 10000) {
-                        navigator.vibrate([maxVibeTime, 18, Math.floor(maxVibeTime / 2)]);
-                    } else {
-                        navigator.vibrate(maxVibeTime);
+                    if (state.continuousTime < 10000) return;
+
+                    if (state.continuousTime < 15000) {
+                        var lightProgress = (state.continuousTime - 10000) / 5000.0;
+                        var lightPulse = 12 + Math.floor(16 * lightProgress);
+                        navigator.vibrate(lightPulse);
+                        return;
                     }
+
+                    var heavyProgress = Math.min(1.0, (state.continuousTime - 15000) / 5000.0);
+                    var strongPulse = 30 + Math.floor(42 * heavyProgress);
+                    var pulseGap = Math.max(8, 16 - Math.floor(6 * heavyProgress));
+                    var tailPulse = Math.floor(strongPulse * (0.58 + 0.12 * heavyProgress));
+                    navigator.vibrate([strongPulse, pulseGap, tailPulse]);
                 } catch (e) {}
             }
         }
@@ -3225,44 +3376,38 @@
             targetCtx.restore();
         }
 
+        function lerpNumber(start, end, t) {
+            return start + (end - start) * t;
+        }
+
+        function lerpHue(start, end, t) {
+            var delta = ((end - start + 540) % 360) - 180;
+            return (start + delta * t + 360) % 360;
+        }
+
+        function getThemeStops(theme) {
+            return themeColorStops[theme] || themeColorStops.dual_amethyst || [{ h: 260, s: 90, l: 58 }];
+        }
+
         function getComputedColor(theme, idx, total) {
-            let h = 0, s = 100, l = 50;
-            switch (theme) {
-                case 'grad_red': h = 355; s = 100; l = 40 + (idx / total) * 45; break;
-                case 'grad_green': h = 145; s = 100; l = 35 + (idx / total) * 45; break;
-                case 'grad_blue': h = 210; s = 100; l = 40 + (idx / total) * 45; break;
-                case 'grad_purple': h = 280; s = 100; l = 35 + (idx / total) * 45; break;
-                case 'grad_yellow': h = 52; s = 100; l = 45 + (idx / total) * 35; break;
-                case 'grad_cyan': h = 185; s = 100; l = 40 + (idx / total) * 40; break;
-                case 'grad_white': h = 200; s = 5; l = 50 + (idx / total) * 45; break;
-                case 'grad_pink': h = 330; s = 95; l = 60 + (idx / total) * 25; break;
-                case 'grad_orange': h = 25; s = 100; l = 45 + (idx / total) * 30; break;
-                case 'grad_lime': h = 85; s = 95; l = 45 + (idx / total) * 30; break;
-                case 'grad_teal': h = 170; s = 100; l = 35 + (idx / total) * 40; break;
-                case 'grad_indigo': h = 235; s = 90; l = 40 + (idx / total) * 35; break;
-                case 'grad_gold': h = 45; s = 85; l = 35 + (idx / total) * 40; break;
-                case 'grad_lavender': h = 265; s = 80; l = 60 + (idx / total) * 30; break;
-                case 'grad_rose': h = 345; s = 95; l = 35 + (idx / total) * 35; break;
-
-                // 精简�?3 种极轻奢双色渐变
-                case 'dual_amethyst': h = (idx % 2 === 0) ? 260 : 330; s = 95; l = 55; break;
-                case 'dual_emerald': h = (idx % 2 === 0) ? 165 : 75; s = 90; l = 48; break;
-                case 'dual_crimson_gold': h = (idx % 2 === 0) ? 5 : 43; s = 95; l = 52; break;
-                case 'dual_luxury_white': h = (idx % 2 === 0) ? 210 : 42; s = (idx % 2 === 0) ? 12 : 28; l = (idx % 2 === 0) ? 88 : 68; break;
-                case 'dual_teal_white': h = (idx % 2 === 0) ? 172 : 205; s = (idx % 2 === 0) ? 84 : 12; l = (idx % 2 === 0) ? 52 : 88; break;
-                case 'dual_gold_white': h = (idx % 2 === 0) ? 42 : 210; s = (idx % 2 === 0) ? 90 : 10; l = (idx % 2 === 0) ? 58 : 90; break;
-                case 'dual_pink_white': h = (idx % 2 === 0) ? 326 : 210; s = (idx % 2 === 0) ? 82 : 10; l = (idx % 2 === 0) ? 68 : 90; break;
-                case 'dual_blue_cyan': h = (idx % 2 === 0) ? 215 : 185; s = 95; l = 56; break;
-                case 'dual_violet_pink': h = (idx % 2 === 0) ? 265 : 325; s = 88; l = 62; break;
-                case 'dual_ocean_cyan': h = (idx % 2 === 0) ? 202 : 176; s = 92; l = 54; break;
-                case 'dual_aurora': h = [165, 210, 285, 330][idx % 4]; s = 88; l = 58; break;
-                case 'dual_rose_gold': h = (idx % 2 === 0) ? 345 : 38; s = 86; l = 62; break;
-
-                case 'matrix': h = 115 + Math.random() * 25; s = 100; l = Math.random() > 0.3 ? 50 : 22; break;
-                case 'sakura': h = 340 + Math.random() * 20; s = 85; l = 70 + Math.random() * 20; break;
-                case 'gold': h = 42 + (Math.random() - 0.5) * 8; s = 90 + Math.random() * 10; l = 48 + Math.random() * 15; break;
-                default: h = (idx / total) * 360; break;
+            var stops = getThemeStops(theme);
+            var progress = total <= 1 ? 0 : clamp(idx / (total - 1), 0, 1);
+            if (!stops.length) stops = themeColorStops.dual_amethyst;
+            if (stops.length === 1) {
+                var onlyStop = stops[0];
+                var h = Math.round(onlyStop.h);
+                var s = Math.round(onlyStop.s);
+                var l = Math.round(onlyStop.l);
+                return `hsl(${h}, ${s}%, ${l}%)`;
             }
+            var scaled = progress * (stops.length - 1);
+            var segmentIndex = Math.min(stops.length - 2, Math.floor(scaled));
+            var localT = scaled - segmentIndex;
+            var start = stops[segmentIndex];
+            var end = stops[segmentIndex + 1];
+            var h = Math.round(lerpHue(start.h, end.h, localT));
+            var s = Math.round(lerpNumber(start.s, end.s, localT));
+            var l = Math.round(lerpNumber(start.l, end.l, localT));
             return `hsl(${h}, ${s}%, ${l}%)`;
         }
 
@@ -3327,9 +3472,11 @@
             phoneCtx.save();
             phoneCtx.globalCompositeOperation = 'screen';
 
-            var centerX = phoneCanvas.width * (0.5 + Math.sin(phoneAtmosphereState.phase) * 0.025);
-            var centerY = phoneCanvas.height * (0.48 + Math.cos(phoneAtmosphereState.phase * 0.72) * 0.02);
-            var spread = Math.max(phoneCanvas.width, phoneCanvas.height);
+            var phoneWidth = phoneCanvas.clientWidth || width;
+            var phoneHeight = phoneCanvas.clientHeight || height;
+            var centerX = phoneWidth * (0.5 + Math.sin(phoneAtmosphereState.phase) * 0.025);
+            var centerY = phoneHeight * (0.48 + Math.cos(phoneAtmosphereState.phase * 0.72) * 0.02);
+            var spread = Math.max(phoneWidth, phoneHeight);
 
             var mist = phoneCtx.createRadialGradient(centerX, centerY, spread * 0.06, centerX, centerY, spread * 0.58);
             mist.addColorStop(0, palette[0]);
@@ -3337,14 +3484,14 @@
             mist.addColorStop(1, 'rgba(0, 0, 0, 0)');
             phoneCtx.globalAlpha = 0.18 + pulse * 0.12;
             phoneCtx.fillStyle = mist;
-            phoneCtx.fillRect(0, 0, phoneCanvas.width, phoneCanvas.height);
+            phoneCtx.fillRect(0, 0, phoneWidth, phoneHeight);
 
-            var accent = phoneCtx.createRadialGradient(phoneCanvas.width * 0.78, phoneCanvas.height * 0.26, 0, phoneCanvas.width * 0.78, phoneCanvas.height * 0.26, spread * 0.3);
+            var accent = phoneCtx.createRadialGradient(phoneWidth * 0.78, phoneHeight * 0.26, 0, phoneWidth * 0.78, phoneHeight * 0.26, spread * 0.3);
             accent.addColorStop(0, palette[2]);
             accent.addColorStop(1, 'rgba(0, 0, 0, 0)');
             phoneCtx.globalAlpha = 0.12 + shimmerStrength * 0.2;
             phoneCtx.fillStyle = accent;
-            phoneCtx.fillRect(0, 0, phoneCanvas.width, phoneCanvas.height);
+            phoneCtx.fillRect(0, 0, phoneWidth, phoneHeight);
 
             phoneCtx.restore();
             phoneAtmosphereState.pulse = Math.max(0, pulse - 0.035);
@@ -3771,6 +3918,18 @@
             return clamp(((value - min) / (max - min)) * 100, 0, 100);
         }
 
+        function getVerticalSliderDisplayPercent(key, value, min, max) {
+            var percent = stateValueToPercent(value, min, max);
+            if (key === 'trail') return 100 - percent;
+            return percent;
+        }
+
+        function getVerticalSliderStateValueFromDisplayPercent(key, percent, min, max, step) {
+            var normalizedPercent = clamp(parseFloat(percent) || 0, 0, 100);
+            if (key === 'trail') normalizedPercent = 100 - normalizedPercent;
+            return percentToStateValue(normalizedPercent, min, max, step);
+        }
+
         function updateVerticalSliderVisual(paramEl) {
             var key = paramEl.getAttribute('data-state-key');
             var min = parseFloat(paramEl.getAttribute('data-min'));
@@ -3779,7 +3938,7 @@
             var fill = paramEl.querySelector('.vertical-slider-fill');
             var valueEl = paramEl.querySelector('.vertical-slider-value');
             var cardValueEl = paramEl.querySelector('.param-card-value');
-            var percent = Math.round(stateValueToPercent(parseFloat(state[key]), min, max));
+            var percent = Math.round(getVerticalSliderDisplayPercent(key, parseFloat(state[key]), min, max));
             fill.style.setProperty('--fill-percent', percent + '%');
             valueEl.innerText = String(percent);
             if (cardValueEl) cardValueEl.innerText = String(percent) + '%';
@@ -3794,7 +3953,7 @@
             var min = parseFloat(paramEl.getAttribute('data-min'));
             var max = parseFloat(paramEl.getAttribute('data-max'));
             var step = parseFloat(paramEl.getAttribute('data-step'));
-            state[key] = percentToStateValue(percent, min, max, step);
+            state[key] = getVerticalSliderStateValueFromDisplayPercent(key, percent, min, max, step);
             updateVerticalSliderVisual(paramEl);
             clearActivePreset();
         }
@@ -4305,17 +4464,9 @@
             var titleNode = panelBody ? panelBody.querySelector('[data-sound-title]') : null;
             var descriptionNode = panelBody ? panelBody.querySelector('[data-sound-description]') : null;
             var countNode = panelBody ? panelBody.querySelector('[data-sound-count]') : null;
-            var feedbackTitle = panelBody ? panelBody.querySelector('[data-sound-feedback-title]') : null;
-            var feedbackCount = panelBody ? panelBody.querySelector('[data-sound-feedback-count]') : null;
-            var feedbackDescription = panelBody ? panelBody.querySelector('[data-sound-feedback-description]') : null;
-            var feedbackVisual = panelBody ? panelBody.querySelector('[data-sound-feedback-visual]') : null;
             if (titleNode) titleNode.textContent = activeMeta.name;
             if (descriptionNode) descriptionNode.textContent = activeMeta.description;
             if (countNode) countNode.textContent = activeMeta.label;
-            if (feedbackTitle) feedbackTitle.textContent = activeMeta.name;
-            if (feedbackCount) feedbackCount.textContent = activeMeta.label;
-            if (feedbackDescription) feedbackDescription.textContent = activeMeta.description;
-            if (feedbackVisual) feedbackVisual.innerHTML = renderSoundPreviewIcon(activeMeta);
             if (panelTitle) panelTitle.textContent = activeMeta.name;
             if (panelSub) panelSub.textContent = activeMeta.description;
             if (modeLabel) modeLabel.textContent = '音效';
@@ -4431,6 +4582,7 @@
             var feedbackTitle = panelBody ? panelBody.querySelector('[data-track-feedback-title]') : null;
             var feedbackCount = panelBody ? panelBody.querySelector('[data-track-feedback-count]') : null;
             var feedbackDescription = panelBody ? panelBody.querySelector('[data-track-feedback-description]') : null;
+            var feedbackPanel = panelBody ? panelBody.querySelector('.track-feedback-card') : null;
             var feedbackVisual = panelBody ? panelBody.querySelector('[data-track-feedback-visual]') : null;
             if (titleNode) titleNode.textContent = activeMeta.name;
             if (descriptionNode) descriptionNode.textContent = activeMeta.description;
@@ -4438,6 +4590,17 @@
             if (feedbackTitle) feedbackTitle.textContent = activeMeta.name;
             if (feedbackCount) feedbackCount.textContent = activeMeta.label;
             if (feedbackDescription) feedbackDescription.textContent = activeMeta.description;
+            if (feedbackPanel) {
+                feedbackPanel.setAttribute('data-track-pattern', activeMeta.pattern);
+                if (feedbackPanel.trackFeedbackTimer) clearTimeout(feedbackPanel.trackFeedbackTimer);
+                feedbackPanel.classList.remove('is-energized');
+                void feedbackPanel.offsetWidth;
+                feedbackPanel.classList.add('is-energized');
+                feedbackPanel.trackFeedbackTimer = setTimeout(function() {
+                    feedbackPanel.classList.remove('is-energized');
+                    feedbackPanel.trackFeedbackTimer = null;
+                }, 420);
+            }
             if (feedbackVisual) feedbackVisual.innerHTML = renderTrackPreviewIcon(activeMeta);
             if (panelTitle) panelTitle.textContent = activeMeta.name;
             if (panelSub) panelSub.textContent = activeMeta.description;
@@ -4795,16 +4958,16 @@
         };
         var activePresetName = 'aurora_drift';
         var presetShellCatalog = [
-            { id: 'aurora_drift', name: '极光漂移', description: '薄荷青与柔紫光晕，平衡感最强。', swatch: 'linear-gradient(135deg, #4fffd2, #9a84ff)', profile: { soundTheme: 'sci-fi', shape: 'hexagon', pattern: 'ring', gravity: -0.05, friction: 0.02, life: 100, count: 220, speed: 7.0, colorTheme: 'dual_aurora', trail: 0.08, sizeMultiplier: 1.1, spinMultiplier: 1.5, rotationMode: 'self' } },
-            { id: 'pearl_glow', name: '珍珠微光', description: '银白高光更亮，整体更安静。', swatch: 'linear-gradient(135deg, #ffffff, #a8b6c8)', profile: { soundTheme: 'digital', shape: 'char_at', pattern: 'dna', gravity: 0.01, friction: 0.04, life: 105, count: 190, speed: 6.4, colorTheme: 'dual_luxury_white', trail: 0.12, sizeMultiplier: 1.05, spinMultiplier: 0.7, rotationMode: 'self' } },
-            { id: 'stardust_gold', name: '星屑暖金', description: '暖金尾迹更厚，适合更柔和的触感音。', swatch: 'linear-gradient(135deg, #ffeaa8, #ff9d5c)', profile: { soundTheme: 'jazz', shape: 'pentagon', pattern: 'clover', gravity: 0.08, friction: 0.03, life: 86, count: 220, speed: 9.0, colorTheme: 'dual_rose_gold', trail: 0.16, sizeMultiplier: 1.12, spinMultiplier: 1.2, rotationMode: 'self' } },
-            { id: 'deepsea_crystal', name: '深海蓝晶', description: '冷静沉浸，轨迹更通透克制。', swatch: 'linear-gradient(135deg, #0c2442, #78dfff)', profile: { soundTheme: 'prism', shape: '3d_sphere', pattern: 'flower', gravity: 0.0, friction: 0.06, life: 96, count: 260, speed: 8.2, colorTheme: 'grad_blue', trail: 0.24, sizeMultiplier: 1.25, spinMultiplier: 0.6, rotationMode: 'vortex' } },
-            { id: 'corona_warm', name: '日冕暖流', description: '偏金与珊瑚色，适合更热烈的交互。', swatch: 'linear-gradient(135deg, #f9d423, #ff4e50)', profile: { soundTheme: 'thunder', shape: 'star', pattern: 'blackhole_horizon', gravity: 0.0, friction: 0.025, life: 82, count: 260, speed: 11.4, colorTheme: 'grad_orange', trail: 0.14, sizeMultiplier: 1.18, spinMultiplier: 1.8, rotationMode: 'vortex' } },
-            { id: 'zero_mist_violet', name: '零度雾紫', description: '更轻的冷紫和雾白层次。', swatch: 'linear-gradient(135deg, #8ec5fc, #e0c3fc)', profile: { soundTheme: 'thunder', shape: 'spiral_node', pattern: 'nebula_cloud', gravity: -0.03, friction: 0.04, life: 118, count: 210, speed: 6.8, colorTheme: 'dual_violet_pink', trail: 0.10, sizeMultiplier: 1.02, spinMultiplier: 0.9, rotationMode: 'self' } },
-            { id: 'neon_field', name: '霓虹静场', description: '高饱和青紫对比，适合更科技感的轨迹。', swatch: 'linear-gradient(135deg, #667eea, #764ba2)', profile: { soundTheme: 'bloom', shape: '3d_cube', pattern: 'quantum_grid', gravity: -0.06, friction: 0.03, life: 92, count: 240, speed: 10.5, colorTheme: 'dual_blue_cyan', trail: 0.18, sizeMultiplier: 1.08, spinMultiplier: 1.6, rotationMode: 'self' } },
-            { id: 'amber_dust', name: '琥珀星尘', description: '暖光粒子与玻璃边缘一起发亮。', swatch: 'linear-gradient(135deg, #fccb90, #d57eeb)', profile: { soundTheme: 'retro', shape: 'char_question', pattern: 'heartWave', gravity: 0.04, friction: 0.025, life: 95, count: 200, speed: 8.8, colorTheme: 'grad_lavender', trail: 0.15, sizeMultiplier: 1.1, spinMultiplier: 1.0, rotationMode: 'self' } },
-            { id: 'moon_echo', name: '月面回声', description: '灰白与淡粉，更适合轻柔的拨片音。', swatch: 'linear-gradient(135deg, #ffecd2, #fcb69f)', profile: { soundTheme: 'classic', shape: '3d_torus', pattern: 'vortex', gravity: 0.02, friction: 0.05, life: 100, count: 180, speed: 6.6, colorTheme: 'dual_pink_white', trail: 0.11, sizeMultiplier: 1.0, spinMultiplier: 0.8, rotationMode: 'vortex' } },
-            { id: 'obsidian_fire', name: '黑曜流火', description: '黑底上保留少量高热橙红反应。', swatch: 'linear-gradient(135deg, #ff6b6b, #ffd166)', profile: { soundTheme: 'heavy', shape: 'starburst', pattern: 'pulsar', gravity: 0.0, friction: 0.03, life: 76, count: 280, speed: 12.8, colorTheme: 'dual_crimson_gold', trail: 0.10, sizeMultiplier: 1.24, spinMultiplier: 2.0, rotationMode: 'vortex' } }
+            { id: 'aurora_drift', name: '极光漂移', description: '六边晶体沿环面轻推，薄荷青和柔紫最耐看。', swatch: 'linear-gradient(135deg, #53f7d4 0%, #53bfff 48%, #9e86ff 100%)', profile: { soundTheme: 'sci-fi', shape: 'hexagon', pattern: 'ring', gravity: -0.04, friction: 0.03, life: 92, count: 180, speed: 6.8, colorTheme: 'dual_aurora', trail: 0.08, sizeMultiplier: 1.04, spinMultiplier: 0.9, rotationMode: 'self' } },
+            { id: 'pearl_glow', name: '珍珠微光', description: '圆环和月白四段色缓慢游走，手机上也很干净。', swatch: 'linear-gradient(135deg, #fff7db 0%, #8ef0ff 32%, #a2a6ff 68%, #ffb7d1 100%)', profile: { soundTheme: 'digital', shape: 'ring', pattern: 'wave', gravity: 0.0, friction: 0.05, life: 100, count: 150, speed: 5.6, colorTheme: 'tri_pearl_glow', trail: 0.12, sizeMultiplier: 0.98, spinMultiplier: 0.35, rotationMode: 'self' } },
+            { id: 'stardust_gold', name: '星屑暖金', description: '五角片做三叶开合，暖金和日曜色层次更丰厚。', swatch: 'linear-gradient(135deg, #fff0a6 0%, #ffcf54 34%, #ff9362 66%, #ff6f8f 100%)', profile: { soundTheme: 'jazz', shape: 'pentagon', pattern: 'clover', gravity: 0.05, friction: 0.04, life: 84, count: 170, speed: 7.8, colorTheme: 'tri_solar_tide', trail: 0.14, sizeMultiplier: 1.08, spinMultiplier: 0.85, rotationMode: 'self' } },
+            { id: 'deepsea_crystal', name: '深海蓝晶', description: '方晶格在冷蓝涡面里旋开，质感更克制也更顺滑。', swatch: 'linear-gradient(135deg, #0f223b 0%, #2162a8 38%, #44a4e6 72%, #7be3ff 100%)', profile: { soundTheme: 'prism', shape: 'square', pattern: 'vortex', gravity: -0.016, friction: 0.06, life: 90.85, count: 172, speed: 10.6, colorTheme: 'grad_blue', trail: 0.332, sizeMultiplier: 2.61, sizeVariance: 0.6, spinMultiplier: 1.3, rotationMode: 'vortex' } },
+            { id: 'corona_warm', name: '日冕暖流', description: '星芒冲击更利落，四段橙金紫粉让爆发更高级。', swatch: 'linear-gradient(135deg, #ff7a18 0%, #ffd84d 30%, #ff6b8a 64%, #9f7bff 100%)', profile: { soundTheme: 'thunder', shape: 'star', pattern: 'shockwave', gravity: 0.0, friction: 0.03, life: 78, count: 190, speed: 9.8, colorTheme: 'grad_orange', trail: 0.10, sizeMultiplier: 1.16, spinMultiplier: 1.05, rotationMode: 'vortex' } },
+            { id: 'zero_mist_violet', name: '零度雾紫', description: '三角束做低速螺旋，冷紫和雾粉在手机上更容易出层次。', swatch: 'linear-gradient(135deg, #8dc7ff 0%, #b89cff 52%, #ff9ec8 100%)', profile: { soundTheme: 'thunder', shape: 'triangle', pattern: 'spiral', gravity: -0.02, friction: 0.05, life: 96, count: 160, speed: 6.3, colorTheme: 'dual_violet_pink', trail: 0.11, sizeMultiplier: 1.0, spinMultiplier: 0.6, rotationMode: 'self' } },
+            { id: 'neon_field', name: '霓虹静场', description: '十字花横向切面更利落，青蓝紫四色会更有秩序感。', swatch: 'linear-gradient(135deg, #1ad2b7 0%, #43ebff 32%, #4f7cff 66%, #8f64ff 100%)', profile: { soundTheme: 'bloom', shape: 'plus', pattern: 'cross', gravity: -0.04, friction: 0.04, life: 82, count: 180, speed: 9.2, colorTheme: 'grad_teal', trail: 0.12, sizeMultiplier: 1.0, spinMultiplier: 0.7, rotationMode: 'self' } },
+            { id: 'amber_dust', name: '琥珀星尘', description: '菱镜沿李萨如线缓慢织开，暖色里带一点紫雾很有趣。', swatch: 'linear-gradient(135deg, #ffc88e 0%, #ffb15f 34%, #d69dff 68%, #8fc2ff 100%)', profile: { soundTheme: 'retro', shape: 'diamond', pattern: 'lissajous', gravity: 0.02, friction: 0.05, life: 88, count: 155, speed: 6.9, colorTheme: 'grad_lavender', trail: 0.13, sizeMultiplier: 1.02, spinMultiplier: 0.5, rotationMode: 'self' } },
+            { id: 'moon_echo', name: '月面回声', description: '圆核做缓慢球面扩散，粉白和冰蓝会显得更轻更静。', swatch: 'linear-gradient(135deg, #ffffff 0%, #8fd9ff 34%, #b69bff 66%, #ffc2d5 100%)', profile: { soundTheme: 'classic', shape: 'circle', pattern: 'sphere', gravity: 0.01, friction: 0.06, life: 104, count: 145, speed: 5.4, colorTheme: 'grad_white', trail: 0.10, sizeMultiplier: 0.96, spinMultiplier: 0.25, rotationMode: 'self' } },
+            { id: 'obsidian_fire', name: '黑曜流火', description: '锐三角向上喷流，红金双色收得更紧，黑底上更醒目。', swatch: 'linear-gradient(135deg, #ff5b64 0%, #ff8a63 46%, #ffd166 100%)', profile: { soundTheme: 'heavy', shape: 'triangle', pattern: 'fountain', gravity: 0.03, friction: 0.04, life: 74, count: 185, speed: 10.4, colorTheme: 'dual_crimson_gold', trail: 0.09, sizeMultiplier: 1.14, spinMultiplier: 0.95, rotationMode: 'vortex' } }
         ];
         var verticalParamCatalog = {
             size: { label: '大小', stateKey: 'sizeMultiplier', min: '0.3', max: '8', step: '0.1' },
@@ -4829,7 +4992,8 @@
                 '<div class="color-panel-head"><strong>色彩氛围</strong><span>点按色球切换粒子配色，玻璃高光和手机内部氛围会一起变化。</span></div>',
                 '<div class="color-swatches" data-color-swatch-grid>',
                 colorSwatchCatalog.map(function(item) {
-                    return '<button class="color-dot-btn ' + item.classes + '" type="button" data-color="' + item.theme + '" title="' + item.label + '" aria-label="' + item.label + '" aria-pressed="false"></button>';
+                    var styleAttr = item.style ? ' style="background: ' + item.style + ';"' : '';
+                    return '<button class="color-dot-btn ' + item.classes + '"' + styleAttr + ' type="button" data-color="' + item.theme + '" title="' + item.label + '" aria-label="' + item.label + '" aria-pressed="false"></button>';
                 }).join(''),
                 '</div>',
                 '<div class="color-feedback-note" data-color-feedback-note>' + renderColorFeedbackEyes() + '</div>',
@@ -5152,12 +5316,6 @@
                 '</div>',
                 '<div class="shape-center-label" data-sound-count>', activeSound.label, '</div>',
                 '<p class="shape-snap-hint">点击两侧卡片或左右滑动中间卡片，切换当前触感音色并即时预听。</p>',
-                '<div class="shape-feedback-card sound-feedback-card">',
-                '<i class="feedback-orbit"></i>',
-                '<i class="feedback-core"></i>',
-                '<div class="shape-feedback-visual" data-sound-feedback-visual>', renderSoundPreviewIcon(activeSound), '</div>',
-                '<div class="shape-feedback-copy"><strong><span data-sound-title data-sound-feedback-title>', activeSound.name, '</span> <span data-sound-feedback-count>', activeSound.label, '</span></strong><span data-sound-description data-sound-feedback-description>', activeSound.description, '</span></div>',
-                '</div>',
                 '</div>'
             ].join('');
         }
@@ -5181,7 +5339,9 @@
                 '</div>',
                 '<div class="shape-center-label" data-track-count>', activeTrack.label, '</div>',
                 '<p class="shape-snap-hint">点击两侧卡片或左右滑动中间卡片，整组会吸附到新的中心项。</p>',
-                '<div class="shape-feedback-card track-feedback-card selection-feedback">',
+                '<div class="shape-feedback-card track-feedback-card selection-feedback" data-track-pattern="', activeTrack.pattern, '">',
+                '<i class="feedback-rail"></i>',
+                '<i class="feedback-beam"></i>',
                 '<i class="feedback-orbit"></i>',
                 '<i class="feedback-core"></i>',
                 '<div class="shape-feedback-visual" data-track-feedback-visual>', renderTrackPreviewIcon(activeTrack), '</div>',
@@ -5719,8 +5879,8 @@
             btn.addEventListener('click', function(e) { e.stopPropagation(); applyQuickPreset(btn.getAttribute('data-preset')); });
         });
 
-        // 默认初始化激活黑洞预设
-        applyQuickPreset('blackhole');
+        // 默认初始化为更容易上手的深海蓝晶预设
+        applyPresetShellProfile('deepsea_crystal');
 
     </script>
 </body>
